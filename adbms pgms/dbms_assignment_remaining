@@ -1,0 +1,6 @@
+6)update books set price =700.00 where price=650.00;
+7)delete from books where bookid=3;
+8)update books set price=price*1.10;
+9)alter table books drop publication_date;
+10)drop table students;
+
