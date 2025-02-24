@@ -1,0 +1,7 @@
+create bookissues(bookid int,
+    -> studentid int,
+    -> issue_date date,
+    -> return_date date,
+    -> constraint bookissues_fkey_bookid foreign key(bookid) references books(bookid),
+    -> constraint bookissues_fkey_studentid foreign key(studentid) references students(studentid));
+
