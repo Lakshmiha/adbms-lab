@@ -4,4 +4,102 @@ create bookissues(bookid int,
     -> return_date date,
     -> constraint bookissues_fkey_bookid foreign key(bookid) references books(bookid),
     -> constraint bookissues_fkey_studentid foreign key(studentid) references students(studentid));
+select * from students,departments where students.dno=departments.dno;
+insert into bookissues values(1,101,'2021-10-10','2021-11-10'),(2,102,'2022-11-20','2022-12-20');
+insert into bookissues values(1,103,'2020-10-10','2020-11-10'),(2,104,'2023-11-20','2023-12-20'),(4,105,'2024-01-23','2024-02-23');
 
+1)select books.bookid,title,author,students.studentid,name from books,students,bookissues where books.bookid=bookissues.bookid and students.studentid=bookissues.st
+udentid;
++--------+---------------------------+---------------+-----------+------------+
+| bookid | title                     | author        | studentid | name       |
++--------+---------------------------+---------------+-----------+------------+
+|      1 | Database Systems          | Ramez Elmasri |       101 | Midhun K   |
+|      1 | Database Systems          | Ramez Elmasri |       103 | Sidharth M |
+|      2 | Operating System Concepts | Silberschatz  |       102 | Ann Mariya |
+|      2 | Operating System Concepts | Silberschatz  |       104 | Aiswarya V |
+|      4 | Algorithms                | Cormen        |       105 | Thomas     |
++--------+---------------------------+---------------+-----------+------------+
+
+2)select students.studentid,name,dname from students,departments,bookissues where departments.dno=students.dno and students.studentid=bookissues.studentid;
++-----------+------------+-------+
+| studentid | name       | dname |
++-----------+------------+-------+
+|       101 | Midhun K   | MCA   |
+|       102 | Ann Mariya | MCA   |
+|       103 | Sidharth M | MCA   |
+|       104 | Aiswarya V | MCA   |
+|       105 | Thomas     | MCA   |
++-----------+------------+-------+
+
+ select bookid,title,price,price*1.1 from books;
+ select distinct age from students;
+select * from students where name LIKE 'M%';
++-----------+----------+------+------+
+| studentid | name     | age  | dno  |
++-----------+----------+------+------+
+|       101 | Midhun K |   22 |    1 |
++-----------+----------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where name LIKE 'm%';
++-----------+----------+------+------+
+| studentid | name     | age  | dno  |
++-----------+----------+------+------+
+|       101 | Midhun K |   22 |    1 |
++-----------+----------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where name LIKE '%m';
++-----------+------------+------+------+
+| studentid | name       | age  | dno  |
++-----------+------------+------+------+
+|       103 | Sidharth M |   21 |    1 |
++-----------+------------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where name LIKE '%m%';
++-----------+------------+------+------+
+| studentid | name       | age  | dno  |
++-----------+------------+------+------+
+|       101 | Midhun K   |   22 |    1 |
+|       102 | Ann Mariya |   30 |    1 |
+|       103 | Sidharth M |   21 |    1 |
+|       105 | Thomas     |   21 |    1 |
++-----------+------------+------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from students where name LIKE '___';
+Empty set (0.00 sec)
+
+mysql> select * from students where name LIKE '______';
++-----------+--------+------+------+
+| studentid | name   | age  | dno  |
++-----------+--------+------+------+
+|       105 | Thomas |   21 |    1 |
++-----------+--------+------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from students where name LIKE 'A__';
+Empty set (0.00 sec)
+
+mysql> select * from students where name LIKE '______%';
++-----------+------------+------+------+
+| studentid | name       | age  | dno  |
++-----------+------------+------+------+
+|       101 | Midhun K   |   22 |    1 |
+|       102 | Ann Mariya |   30 |    1 |
+|       103 | Sidharth M |   21 |    1 |
+|       104 | Aiswarya V |   25 |    1 |
+|       105 | Thomas     |   21 |    1 |
++-----------+------------+------+------+
+
+select bookid,title,price,price*1.1 AS "increased price" from books;
++--------+---------------------------+--------+-----------------+
+| bookid | title                     | price  | increased price |
++--------+---------------------------+--------+-----------------+
+|      1 | Database Systems          | 550.00 |         605.000 |
+|      2 | Operating System Concepts | 770.00 |         847.000 |
+|      4 | Algorithms                | 110.00 |         121.000 |
++--------+---------------------------+--------+-----------------+
+
+select age from students where age between 20 and 25;
