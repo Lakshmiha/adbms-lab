@@ -229,7 +229,7 @@ select * from bookissues right outer join books on books.bookid=bookissues.booki
 +--------+-----------+------------+-------------+--------+-------------------+---------------------+--------+
 1 row in set (0.00 sec)
 
-select students.name,books.title,books.author from books inner join bookissues on books.bookid=bookissues.bookid inner join students on students.studentid=bookissu
+select students.name,books.title,books.author from books inner join bookissues on books.bookid=bookissues.bookid inner join students on students.studentid=bookissues.studentid;
 +------------+---------------------------+---------------+
 | name       | title                     | author        |
 +------------+---------------------------+---------------+
