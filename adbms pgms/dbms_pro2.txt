@@ -1,0 +1,56 @@
+-- 
+-- Roll No: <your roll no>
+-- Name: <your name>
+-- Program: <program name>
+-- 
+
+
+--
+-- Table structure for table departments
+--
+
+create table departments(dno integer primary key,dname varchar(50) not null);
+
+--
+-- Table structure for table bookissues
+--
+create table bookissues(bookid integer,studentid integer,issue_date date,return_date date,fine decimal(5,2) default 0.00);
+alter table bookissues add constraint pkey_bookissues primary key(bookid,studentid);
+alter table bookissues add constraint bookissues_fkey_bookid foreign key(bookid) references books(bookid);
+alter table bookissues add constraint bookissues_fkey_studentid foreignkey(studentid) references students(studentid);
+
+
+
+--
+-- Table structure for table students
+--
+create table students(studentid int primary key,name varchar(100) not null,course varchar(50) default "MCA",age int check(age>20 and age<40));
+alter table students drop course;
+alter table student add dno integer;
+alter table students add constraint students_fkey_dno foreign key(dno) references departments(dno);
+
+--
+-- Table structure for table books
+--
+create table books(bookid int primary key,title varchar(100) not null,author varchar(50) not null,price decimal(6,2) default 0.00);
+alter table books add column publication_date date;
+insert into books values(1,'Database Systems','Ramez Elmasri',500.00,'1976-10-10'),(2,'Operating System Concepts','Silberschatz',650.00,'1960-11-20'),(3,'Computer Networks','Andrew S. Tanenbaum',700.00,'2000-02-17');
+insert into books(bookid,title,author,publication_date)values(4,'Algorithms','Cormen','2011-01-23');
+
+
+
+-- ---------create/alter statement commands----------- # This line may be removed in the actual file
+
+--
+-- Dumping data for table <table_name>
+--
+
+-- --------insert/update statement commands----------- # This line may be removed in the actcual file
+
+--
+-- SQl Query Statements
+--
+
+-- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
+-- -----Question number should be commented---------------#This line may be removed in the actual file
+
