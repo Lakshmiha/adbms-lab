@@ -275,3 +275,42 @@ mysql> select * from bookissues right outer join books on books.bookid=bookissue
 +-----------+---------+
 
 5)
+select count(*) as 'total students' from students;
++----------------+
+| total students |
++----------------+
+|             10 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as 'total books' from books;
++-------------+
+| total books |
++-------------+
+|          10 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(price) from books;
++------------+
+| avg(price) |
++------------+
+| 362.500000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select max(price),min(price) from books;
++------------+------------+
+| max(price) | min(price) |
++------------+------------+
+|     700.00 |       0.00 |
++------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select count(distinct bookid) "Totalno of bookissued" from bookissues;
++-----------------------+
+| Totalno of bookissued |
++-----------------------+
+|                    10 |
++-----------------------+
+1 row in set (0.00 sec)
