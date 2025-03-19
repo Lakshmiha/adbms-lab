@@ -1,7 +1,7 @@
 -- 
--- Roll No: <your roll no>
--- Name: <your name>
--- Program: <program name>
+-- Roll No: 27
+-- Name: Lakshmi H
+-- Program: 2
 -- 
 
 
@@ -19,8 +19,6 @@ alter table bookissues add constraint pkey_bookissues primary key(bookid,student
 alter table bookissues add constraint bookissues_fkey_bookid foreign key(bookid) references books(bookid);
 alter table bookissues add constraint bookissues_fkey_studentid foreignkey(studentid) references students(studentid);
 
-
-
 --
 -- Table structure for table students
 --
@@ -30,27 +28,40 @@ alter table student add dno integer;
 alter table students add constraint students_fkey_dno foreign key(dno) references departments(dno);
 
 --
--- Table structure for table books
---
-create table books(bookid int primary key,title varchar(100) not null,author varchar(50) not null,price decimal(6,2) default 0.00);
-alter table books add column publication_date date;
-insert into books values(1,'Database Systems','Ramez Elmasri',500.00,'1976-10-10'),(2,'Operating System Concepts','Silberschatz',650.00,'1960-11-20'),(3,'Computer Networks','Andrew S. Tanenbaum',700.00,'2000-02-17');
-insert into books(bookid,title,author,publication_date)values(4,'Algorithms','Cormen','2011-01-23');
-
-
-
--- ---------create/alter statement commands----------- # This line may be removed in the actual file
-
---
--- Dumping data for table <table_name>
+-- Dumping data for table departments
 --
 
--- --------insert/update statement commands----------- # This line may be removed in the actcual file
+insert into departments values(1,"MCA");
+
+--
+-- Dumping data for table bookissues
+--
+insert into bookissues values(2,101,"2025-02-10",NULL,0.00),(1,102,"2025-02-18",0.00);
 
 --
 -- SQl Query Statements
 --
 
--- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
--- -----Question number should be commented---------------#This line may be removed in the actual file
+-- Q7. List all books issued with student details (include attributes studentid, name, bookid, title)
+select students.studentid,students.name,books.bookid,books.title from students inner join bookissues on students.studentid = bookissues.bookid inner join books on books.bookid = bookissues.bookid;
+-- Q8. Show all students along with their department names (include attributes studentid, name, dname)
+select studentid,name,students.dname from students join departments on students.dno = departments.dno;
+-- Q9. List students who have issued books along with their department (include attributes studentid, name, dname, bookid, title)
+select bookissues.studentid,students.name,students.dname,bookissues.bookid,books.title from students inner join bookissues on students.studentid = bookissues.studentid inner join departments on departments.dno = students.dno inner join books on books.bookid = bookissues.bookid;
+
+-- Q10. Find books that have never been issued (include attributes bookid, title)
+
+select books.bookid,books.title from books left outer join bookissues on bookissues.bookid = books.bookid where bookissues.bookid is null;
+
+-- Q11. Get students who have not issued any book (include attributes studentid, name)
+
+select students.studentid, students.name from students left outer join bookissues on bookissues.studentid = students.studentid where bookissues.studentid is null;
+
+-- Q12. Find students who have issued books but not returned them yet (include attributes studentid, name)
+
+select students.studentid, students.name from students join bookissues on bookissues.studentid = students.studentid where return_date is NULL;
+
+-- Q13. List the books whose price greater than rupees 600 (include attributes bookid, title)
+
+select books.bookid, books.title from books where price > %s;
 
