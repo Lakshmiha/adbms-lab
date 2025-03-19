@@ -229,7 +229,7 @@ select * from bookissues right outer join books on books.bookid=bookissues.booki
 +--------+-----------+------------+-------------+--------+-------------------+---------------------+--------+
 1 row in set (0.00 sec)
 
-select students.name,books.title,books.author from books inner join bookissues on books.bookid=bookissues.bookid inner join students on students.studentid=bookissues.studentid;
+select students.name,books.title,books.author from books inner join bookissues on books.bookid=bookissues.bookid inner join students on students.studentid=bookissu
 +------------+---------------------------+---------------+
 | name       | title                     | author        |
 +------------+---------------------------+---------------+
@@ -275,42 +275,81 @@ mysql> select * from bookissues right outer join books on books.bookid=bookissue
 +-----------+---------+
 
 5)
-select count(*) as 'total students' from students;
-+----------------+
-| total students |
-+----------------+
-|             10 |
-+----------------+
+
+select dno,count(studentid) as total_no_of_students from students group by dno having count(studentid)>1;
++------+----------------------+
+| dno  | total_no_of_students |
++------+----------------------+
+|    1 |                    3 |
+|    2 |                    4 |
+|    3 |                    3 |
++------+----------------------+
+3 rows in set (0.00 sec)
+
+mysql> select dno,count(studentid) as total_no_of_students from students group by dno having count(studentid)>4;
+Empty set (0.00 sec)
+
+mysql> select dno,count(studentid) as total_no_of_students from students group by dno having count(studentid)>3;
++------+----------------------+
+| dno  | total_no_of_students |
++------+----------------------+
+|    2 |                    4 |
++------+----------------------+
 1 row in set (0.00 sec)
 
-mysql> select count(*) as 'total books' from books;
-+-------------+
-| total books |
-+-------------+
-|          10 |
-+-------------+
-1 row in set (0.00 sec)
+mysql> select dno,count(studentid) as total_no_of_students from students group by dno having count(studentid)>2;
++------+----------------------+
+| dno  | total_no_of_students |
++------+----------------------+
+|    1 |                    3 |
+|    2 |                    4 |
+|    3 |                    3 |
++------+----------------------+
+3 rows in set (0.00 sec)
 
-mysql> select avg(price) from books;
-+------------+
-| avg(price) |
-+------------+
-| 362.500000 |
-+------------+
-1 row in set (0.00 sec)
+select dname,students.dno,count(bookid) from bookissues join students on students.studentid=bookissues.studentid join departments on departments.dno=students.dno
+ group by dno;
++-------+------+---------------+
+| dname | dno  | count(bookid) |
++-------+------+---------------+
+| MCA   |    1 |             3 |
+| MBA   |    2 |             4 |
+| BTech |    3 |             4 |
++-------+------+---------------+
+3 rows in set (0.00 sec)
 
-mysql> select max(price),min(price) from books;
-+------------+------------+
-| max(price) | min(price) |
-+------------+------------+
-|     700.00 |       0.00 |
-+------------+------------+
-1 row in set (0.00 sec)
+select author,avg(price) from books group by author;
++---------------------+------------+
+| author              | avg(price) |
++---------------------+------------+
+| Ramez Elmasri       | 500.000000 |
+| Silberschatz        | 650.000000 |
+| Andrew S. Tanenbaum | 700.000000 |
+| Cormen              |   0.000000 |
+| David               | 200.000000 |
+| Thomson             | 260.000000 |
+| Subramaniam         | 265.000000 |
+| Krishna             | 300.000000 |
+| Harikrishnan        | 400.000000 |
+| Joseph              | 350.000000 |
++---------------------+------------+
+10 rows in set (0.01 sec)
 
-mysql> select count(distinct bookid) "Totalno of bookissued" from bookissues;
-+-----------------------+
-| Totalno of bookissued |
-+-----------------------+
-|                    10 |
-+-----------------------+
-1 row in set (0.00 sec)
+select books.title,count(books.bookid) from books join bookissues on books.bookid=bookissues.bookid group by bookissues.bookid;
++---------------------------+---------------------+
+| title                     | count(books.bookid) |
++---------------------------+---------------------+
+| Database Systems          |                   1 |
+| Operating System Concepts |                   1 |
+| Computer Networks         |                   1 |
+| Algorithms                |                   1 |
+| Python                    |                   2 |
+| Java                      |                   1 |
+| Javascript                |                   1 |
+| Organisational behaviour  |                   1 |
+| Html concepts             |                   1 |
+| Css concepts              |                   1 |
++---------------------------+---------------------+
+10 rows in set (0.00 sec)
+
+
