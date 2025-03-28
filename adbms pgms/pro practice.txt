@@ -1,0 +1,5 @@
+create table librarians(librarianid integer primary key auto_increment,name varchar(50) not null,email varchar(100) unique not null,phone varchar(10) unique not
+null);
+alter table bookissues add column librarianid integer;
+alter table bookissues add constraint bookissues_fkey_librarianid foreign key(librarianid) references librarians(librarianid);
+
