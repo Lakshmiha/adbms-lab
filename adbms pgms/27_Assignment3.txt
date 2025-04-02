@@ -1,0 +1,51 @@
+-- 
+-- Roll No: 27
+-- Name: LAKSHMI H
+-- Program: 3
+-- 
+
+
+--
+-- Table structure for table librarians
+--
+
+create table librarians(librarianid integer primary key auto_increment,name varchar(50) not null,email varchar(100) unique not null,phone varchar(10) unique not null);
+-- ---------create/alter statement commands----------- # This line may be removed in the actual file
+
+--
+-- Table structure for table bookissues
+--
+
+alter table bookissues add column librarianid integer;
+alter table bookissues add constraint bookissues_fkey_librarianid foreign key(librarianid) references librarians(librarianid);
+-- ---------create/alter statement commands----------- # This line may be removed in the actual file
+
+--
+-- Dumping data for table librarians
+--
+
+insert into librarians values(1,'John Smith','john.smith@example.com',9876543210);
+insert into librarians values(2,'Emma Brown','emma.brown@example.com',8765432109);
+insert into librarians values(3,'David Wilson','david.wilson@example.com',7654321098);
+insert into librarians values(4,'Franklin','franklin@example.com',3445236778);
+
+-- --------insert/update statement commands----------- # This line may be removed in the actual file
+
+--
+-- Dumping data for table bookissues
+--
+
+update bookissues set librarianid=1 where bookid in(1,2);
+
+update bookissues set librarianid=1 where bookid in(3,4);
+
+update bookissues set librarianid=1 where bookid in(5,6);
+-- --------insert/update statement commands----------- # This line may be removed in the actcual file
+
+--
+-- SQl Query Statements
+--
+
+-- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
+-- -----Question number should be commented---------------#This line may be removed in the actual file
+
