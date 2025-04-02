@@ -36,15 +36,23 @@ insert into librarians values(4,'Franklin','franklin@example.com',3445236778);
 --
 
 update bookissues set librarianid=1 where bookid in(1,2);
-
 update bookissues set librarianid=1 where bookid in(3,4);
-
 update bookissues set librarianid=1 where bookid in(5,6);
+
 -- --------insert/update statement commands----------- # This line may be removed in the actcual file
 
 --
 -- SQl Query Statements
 --
+
+-- Q5.List all book issues with student and librarian details (include attributes studend name, title, librarian name)
+select students.name,title,librarians.name from bookissues join students on students.studentid=bookissues.studentid join books on bookissues.bookid=books.bookid join librarians on bookissues.librarianid=librarians.librarianid;
+
+-- Q6.Count the number of books issued by each librarian (include attributes librarianid, name, total_books_issued)
+select librarians.librarianid,name,count(bookissues.bookid) as total_books_issued from bookissues join librarians on bookissues.librarianid=librarians.librarianid group by librarians.librarianid,librarians.name;
+
+-- Q7.Find librarians who have not issued any books (include attributes librarianid, name)
+select librarians.librarianid,name from librarians left join bookissues on librarians.librarianid=bookissues.librarianid where bookissues.bookid is null;
 
 -- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
 -- -----Question number should be commented---------------#This line may be removed in the actual file
