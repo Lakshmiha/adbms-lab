@@ -1,0 +1,52 @@
+[mca@localhost ~]$ mySQL 24mca27
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 22
+Server version: 8.0.41 Source distribution
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use 24mca27
+Database changed
+mysql> create table books(accno int auto_increment,title varchar(100) unique not null,author varchar(50) not null,price float(4,2),type enum("lending","reference"),availability enum("yes","no"),publisherid int);
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> create table books(accno int auto_increment primary key,title varchar(100
+) unique not null,author varchar(50) not null,price float(4,2),type enum("lending","reference"),availability enum("yes","no"),publisherid int);
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> desc books;\
++--------------+-----------------------------+------+-----+---------+----------------+
+| Field        | Type                        | Null | Key | Default | Extra          |
++--------------+-----------------------------+------+-----+---------+----------------+
+| accno        | int                         | NO   | PRI | NULL    | auto_increment |
+| title        | varchar(100)                | NO   | UNI | NULL    |                |
+| author       | varchar(50)                 | NO   |     | NULL    |                |
+| price        | float(4,2)                  | YES  |     | NULL    |                |
+| type         | enum('lending','reference') | YES  |     | NULL    |                |
+| availability | enum('yes','no')            | YES  |     | NULL    |                |
+| publisherid  | int                         | YES  |     | NULL    |                |
++--------------+-----------------------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> create table publishers(publisherid int auto_increment primary key,name varchar(50) unique not null,address varchar(100));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table members(memberid int auto_increment primary key,name varchar(50) not null,address varchar(100),type enum("staff","student"));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table issues(issueid int auto_increment primary key,memberid int foreign key,accno int foreign key,issuedate date,duedate date);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key,accno int foreign key,issuedate date,duedate date)' at line 1
+mysql> create table issues(issueid int auto_increment primary key,memberid int,accno int,issuedate date,duedate date);
+Query OK, 0 rows affected (0.03 sec)staff","student"));
+
+mysql> create table returns(returnid int auto_increment primary key,memberid int,accno int,returndate date,fine int default 0 check(fine>=0));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+
