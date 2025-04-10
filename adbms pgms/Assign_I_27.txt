@@ -8,51 +8,66 @@
 --
 -- Table structure for table books
 --
-create table books(accno int auto_increment primary key,title varchar(100) unique not null,author varchar(50) not null,price float(4,2),type enum("lending","reference"),availability enum("yes","no"),publisherid int);
-alter table books add constraint books_fkey_publisherid foreign key(publisherid) references publishers(publisherid);
+create table books(accno int auto_increment unique primary key,title varchar(100) unique not null,author varchar(50) not null,price float(4,2),type enum("lending","reference"),availability enum("yes","no"),publisherid int);
 
--- ---------create/alter statement commands----------- # This line may be removed in the actual file
+alter table books add constraint books_fkey_publisherid foreign key(publisherid) references publishers(publisherid);
 
 --
 -- Table structure for table publishers
 --
 create table publishers(publisherid int auto_increment primary key,name varchar(50) unique not null,address varchar(100));
 
--- ---------create/alter statement commands----------- # This line may be removed in the actual file
-
 --
 -- Table structure for table members
 --
 create table members(memberid int auto_increment primary key,name varchar(50) not null,address varchar(100),type enum("staff","student"));
--- ---------create/alter statement commands----------- # This line may be removed in the actual file
 
 --
 -- Table structure for table issues
 --
 create table issues(issueid int auto_increment primary key,memberid int,accno int,issuedate date,duedate date);
+
 alter table issues add constraint issues_fkey_memberid foreign key(memberid) references members(memberid);
+
 alter table issues add constraint issues_fkey_accno foreign key(accno) references books(accno);
--- ---------create/alter statement commands----------- # This line may be removed in the actual file
 
 --
 -- Table structure for table returns
 --
 create table returns(returnid int auto_increment primary key,memberid int,accno int,returndate date,fine int default 0 check(fine>=0));
+
 alter table returns add constraint returns_fkey_memberid foreign key(memberid) references members(memberid);
+
 alter table returns add constraint returns_fkey_accno foreign key(accno) references books(accno);
--- ---------create/alter statement commands----------- # This line may be removed in the actual file
 
 
 --
--- Dumping data for table <table_name>
+-- Dumping data for table books
 --
+insert into books values(1,"Alice in Wonderland", "Lewis Carroll",450,"lending","no",1),(2,"The Republic","Plato", 200,'lending','yes',2),(3,"The Wealth of Nations", "Adam Smith",300,'reference','yes',3),(4,"Gitanjali", "Rabindranath Tagore", 850,"lending","no",4),(5,"The Guide","R.K. Narayan", 350,"lending","yes",5);
 
--- --------insert/update statement commands----------- # This line may be removed in the actcual file
+--
+-- Dumping data for table publishers
+--
+insert into publishers values(1, "DC books", "Thrissur"),(2,"Canva Books", "Edappal"),(3, "Matrin Books", "WestFort"),(4,"Milan Books", "Ernakulam"),(5, "KJ Books","Kuttippuram");
+
+--
+-- Dumping data for table members
+--
+insert into members values(1001,"Suresh", "Malappuram","staff"),(1002, "Joseph" , "Kottayam","student"),(1003,"Rahul", "Palakkad","staff"),(1004,"Neethu","Ernamkulam","student"),(1005,"Karthik","Kozhikode","student");
+
+--
+-- Dumping data for table issues
+--
+insert into issues values(2001,1001,1,'2025-02-15','2025-03-15'),(2002,1003,4,'2023-11-16','2023-12-16'),(2003,1004,5,'2025-02-14','2025-03-14'),(2004,1004,3,'2022-04-08','2022-05-08'),(2005,1005,5,'2023-12-10','2024-01-10');
+
+--
+-- Dumping data for table returns
+--
+insert into returns values(3001, 1003,5,'2025-03-01',0),(3002,1001,1,'2023-12-15',10),(3003, 1005,5,'2025-03-01',1010),(3004,1004,5,'2022-05-01',0),(3005,1001,1,'2024-01-6',0);
 
 --
 -- SQl Query Statements
 --
 
--- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
--- -----Question number should be commented---------------#This line may be removed in the actual file
 
