@@ -28,3 +28,22 @@ Questions:
 6. Count the number of books issued by each librarian (include attributes librarianid, name, total_books_issued)
 7. Find librarians who have not issued any books (include attributes librarianid, name)
 
+
+
+
+
+new assignment
+
+1)select name,address FROM members;
+2)select accno,title FROM books WHERE title LIKE '%o%';
+3)SELECT * FROM books WHERE availability="yes";
+4)SELECT books.title,books.author,publishers.name FROM books JOIN publishers ON books.publisherid=publishers.publisherid;
+5)SELECT members.name,members.address,books.title from members JOIN issues ON issues.memberid=members.memberid JOIN books ON books.accno=issues.accno ORDER BY books.title ASC;
+6)SELECT members.name,COUNT(issues.accno) AS TotalBooksIssued FROM members JOIN issues ON members.memberid=issues.memberid GROUP BY members.name;
+7)SELECT name,address FROM members WHERE memberid NOT IN(SELECT DISTINCT memberid FROM issues);
+8)SELECT title,author,COUNT(issues.issueid) AS NumberofIssue FROM books LEFT JOIN issues ON books.accno=issues.accno GROUP BY books.title,books.author;
+9)SELECT members.name, COUNT(issues.accno) AS TotalBooksIssued FROM members JOIN issues ON members.memberid = issues.memberid GROUP BY members.name HAVING COUNT(issues.accno) > 2;
+10)SELECT title, author FROM books WHERE accno NOT IN (SELECT DISTINCT accno FROM issues);
+11)SELECT books.title, books.author, COUNT(issues.issueid) AS TotalIssued FROM books JOIN issues ON books.accno = issues.accno GROUP BY books.title, books.author ORDER BY TotalIssued DESC LIMIT 5;
+12)SELECT books.title, books.author, COUNT(issues.issueid) AS TotalIssued FROM books JOIN issues ON books.accno = issues.accno GROUP BY books.title, books.author HAVING COUNT(issues.issueid) = (SELECT MAX(BookCount) FROM (SELECT COUNT(issueid) AS BookCount FROM issues GROUP BY accno) AS counts);
+13)SELECT DISTINCT members.name, issues.issuedate FROM members JOIN issues ON members.memberid = issues.memberid WHERE issues.issuedate < '2023-06-01' AND NOT EXISTS (SELECT 1 FROM returns WHERE returns.memberid = issues.memberid AND returns.accno = issues.accno);
