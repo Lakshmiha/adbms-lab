@@ -28,7 +28,7 @@ select name,address FROM members;
 select accno,title FROM books WHERE title LIKE '%o%';
 
 -- 3)Retrieve books (include all attributes) that are currently available for lending. (1 Mark)
-SELECT * FROM books WHERE availability="yes";
+SELECT * FROM books WHERE type="lending" and availability="yes";
 
 -- 4)Retrieve all books with their title, author, and corresponding publisher name. (2 Marks)
 SELECT books.title,books.author,publishers.name FROM books JOIN publishers ON books.publisherid=publishers.publisherid;
@@ -37,7 +37,7 @@ SELECT books.title,books.author,publishers.name FROM books JOIN publishers ON bo
 SELECT members.name,members.address,books.title from members JOIN issues ON issues.memberid=members.memberid JOIN books ON books.accno=issues.accno ORDER BY books.title ASC;
 
 -- 6)Retrieve the name, total number of books (rename it as TotalBooksIssued) issued by each member. (2 Marks)
-SELECT members.name,COUNT(issues.accno) AS TotalBooksIssued FROM members JOIN issues ON members.memberid=issues.memberid GROUP BY members.name;
+SELECT members.name,COUNT(issues.accno) AS TotalBooksIssued FROM members LEFT mvJOIN issues ON members.memberid=issues.memberid GROUP BY members.name;
 
 -- 7)Retrieve members (include name, address) who have not issued any books. (2 Marks)
 SELECT name,address FROM members WHERE memberid NOT IN(SELECT DISTINCT memberid FROM issues);
@@ -52,10 +52,10 @@ SELECT members.name, COUNT(issues.accno) AS TotalBooksIssued FROM members JOIN i
 SELECT title, author FROM books WHERE accno NOT IN (SELECT DISTINCT accno FROM issues);
 
 -- 11)Retrieve the top 5 most issued books (include title, author, TotalIssued). (5 Marks - Not graded)
-SELECT books.title, books.author, COUNT(issues.issueid) AS TotalIssued FROM books JOIN issues ON books.accno = issues.accno GROUP BY books.title, books.author ORDER BY TotalIssued DESC LIMIT 5;
+SELECT books.title, books.author, COUNT(issues.accno) AS TotalIssued FROM books JOIN issues ON books.accno = issues.accno GROUP BY books.title, books.author ORDER BY TotalIssued DESC LIMIT 1;
 
 -- 12)Retrieve the most issued books (include title, author, TotalIssued). (5 Marks - Not graded)
-SELECT books.title, books.author, COUNT(issues.issueid) AS TotalIssued FROM books JOIN issues ON books.accno = issues.accno GROUP BY books.title, books.author HAVING COUNT(issues.issueid) = (SELECT MAX(BookCount) FROM (SELECT COUNT(issueid) AS BookCount FROM issues GROUP BY accno) AS counts);
+SELECT books.title, books.author, COUNT(issues.accno) AS TotalIssued FROM books JOIN issues ON books.accno = issues.accno GROUP BY books.title, books.author HAVING COUNT(issues.issueid) = (SELECT MAX(BookCount) FROM (SELECT COUNT(issueid) AS BookCount FROM issues GROUP BY accno) AS counts);
 
 -- 13)Retrieve members (include name, issuedate) who issued books before 2023-06-01 and have not returned them yet. (5 Marks - Not graded)
 SELECT DISTINCT members.name, issues.issuedate FROM members JOIN issues ON members.memberid = issues.memberid WHERE issues.issuedate < '2023-06-01' AND NOT EXISTS (SELECT 1 FROM returns WHERE returns.memberid = issues.memberid AND returns.accno = issues.accno);
