@@ -1,0 +1,367 @@
+24mca27_db> db.createCollection("mybd")
+{ ok: 1 }
+24mca27_db> show Collections
+MongoshInvalidInputError: [COMMON-10001] 'Collections' is not a valid argument for "show".
+24mca27_db> show collections
+mybd
+24mca27_db> db.createCollection("student")
+{ ok: 1 }
+24mca27_db> db
+24mca27_db
+24mca27_db> show collections
+mybd
+student
+24mca27_db> db.student.insertOne({rollno:1,name:"Anil",age:20})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b230c699b8b4965d861e0')
+}
+24mca27_db> db.student.find()
+[
+  {
+    _id: ObjectId('681b230c699b8b4965d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  }
+]
+24mca27_db> db.student.insertOne({rollno:2,name:"Bhavya"})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b2588699b8b4965d861e1')
+}
+24mca27_db> db.student.find()
+[
+  {
+    _id: ObjectId('681b230c699b8b4965d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  }
+]
+24mca27_db> db.student.find({rollno:2})
+[
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  }
+]
+24mca27_db> db.student.find({rollno:2,age:22})
+
+24mca27_db> db.student.find({$and:[{rollno:1,age:22}]})
+
+24mca27_db> db.student.find({$and:[{rollno:1,age:20}]})
+[
+  {
+    _id: ObjectId('681b230c699b8b4965d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  }
+]
+24mca27_db> db.student.find({$or:[{rollno:1,age:20}]})
+[
+  {
+    _id: ObjectId('681b230c699b8b4965d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  }
+24mca27_db> db.student.find({},{rollno:1,name:1})
+[
+  {
+    _id: ObjectId('681b230c699b8b4965d861e0'),
+    rollno: 1,
+    name: 'Anil'
+  },
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  }
+]
+24mca27_db> db.student.insertOne({rollno:3,name:"Bhavin",age:25,phone:[9876543210,9487362503]})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b2a69699b8b4965d861e2')
+}
+24mca27_db> db.student.find()
+[
+  {
+    _id: ObjectId('681b230c699b8b4965d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  },
+  {
+    _id: ObjectId('681b2a69699b8b4965d861e2'),
+    rollno: 3,
+    name: 'Bhavin',
+    age: 25,
+    phone: [ 9876543210, 9487362503 ]
+  }
+]
+24mca27_db> db.student.insertOne({rollno:4,name:"Daniel",age:24,address:{city:"Malappuram",state:"Kerala"}})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b2ae9699b8b4965d861e3')
+}
+24mca27_db> db.student.find()
+[
+  {
+    _id: ObjectId('681b230c699b8b4965d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  },
+  {
+    _id: ObjectId('681b2a69699b8b4965d861e2'),
+    rollno: 3,
+    name: 'Bhavin',
+    age: 25,
+    phone: [ 9876543210, 9487362503 ]
+  },
+  {
+    _id: ObjectId('681b2ae9699b8b4965d861e3'),
+    rollno: 4,
+    name: 'Daniel',
+    age: 24,
+    address: { city: 'Malappuram', state: 'Kerala' }
+  }
+]
+24mca27_db> db.student.insertOne({rollno:5,name:"David",age:23,project:[{pid:101,pname:"X"},{pid:102,pname:"Y"}]})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b2bcc699b8b4965d861e4')
+}
+24mca27_db> db.student.find()
+[
+  {
+    _id: ObjectId('681b230c699b8b4965d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 20
+  },
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  },
+  {
+    _id: ObjectId('681b2a69699b8b4965d861e2'),
+    rollno: 3,
+    name: 'Bhavin',
+    age: 25,
+    phone: [ 9876543210, 9487362503 ]
+  },
+  {
+    _id: ObjectId('681b2ae9699b8b4965d861e3'),
+    rollno: 4,
+    name: 'Daniel',
+    age: 24,
+    address: { city: 'Malappuram', state: 'Kerala' }
+  },
+  {
+    _id: ObjectId('681b2bcc699b8b4965d861e4'),
+    rollno: 5,
+    name: 'David',
+    age: 23,
+    project: [ { pid: 101, pname: 'X' }, { pid: 102, pname: 'Y' } ]
+  }
+]
+4mca27_db> db.student.updateOne({rollno:1},{$set:{age=23}})
+... 
+... )
+Uncaught:
+SyntaxError: Invalid shorthand property initializer. (1:42)
+
+> 1 | db.student.updateOne({rollno:1},{$set:{age=23}})
+    |                                           ^
+  2 |
+  3 | )
+  4 |
+
+24mca27_db> db.student.updateOne({rollno:1},{$set:{age:23}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca27_db> db.student.updateOne({rollno:1},{$set:{phone:"9876543210"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca27_db> db.student.updateOne({phone:{$exists:true}},{$rename:{phone:phoneno}})
+ReferenceError: phoneno is not defined
+24mca27_db> db.student.updateOne({phone:{$exists:true}},{$rename:{phone:"phoneno"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+24mca27_db> db.student.find()
+[
+  {
+    _id: ObjectId('681b230c699b8b4965d861e0'),
+    rollno: 1,
+    name: 'Anil',
+    age: 23,
+    phoneno: '9876543210'
+  },
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  },
+  {
+    _id: ObjectId('681b2a69699b8b4965d861e2'),
+    rollno: 3,
+    name: 'Bhavin',
+    age: 25,
+    phone: [ 9876543210, 9487362503 ]
+  },
+  {
+    _id: ObjectId('681b2ae9699b8b4965d861e3'),
+    rollno: 4,
+    name: 'Daniel',
+    age: 24,
+    address: { city: 'Malappuram', state: 'Kerala' }
+  },
+  {
+    _id: ObjectId('681b2bcc699b8b4965d861e4'),
+    rollno: 5,
+    name: 'David',
+    age: 23,
+    project: [ { pid: 101, pname: 'X' }, { pid: 102, pname: 'Y' } ]
+  }
+]
+24mca27_db> db.student.updateOne({rollno:1},{$unset:{phone:"9876543210"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+24mca27_db> db.student.deleteOne({rollno:1})
+{ acknowledged: true, deletedCount: 1 }
+24mca27_db> db.student.find().sort({name:1})
+[
+  {
+    _id: ObjectId('681b2a69699b8b4965d861e2'),
+    rollno: 3,
+    name: 'Bhavin',
+    age: 25,
+    phone: [ 9876543210, 9487362503 ]
+  },
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  },
+  {
+    _id: ObjectId('681b2ae9699b8b4965d861e3'),
+    rollno: 4,
+    name: 'Daniel',
+    age: 24,
+    address: { city: 'Malappuram', state: 'Kerala' }
+  },
+  {
+    _id: ObjectId('681b2bcc699b8b4965d861e4'),
+    rollno: 5,
+    name: 'David',
+    age: 23,
+    project: [ { pid: 101, pname: 'X' }, { pid: 102, pname: 'Y' } ]
+  }
+
+24mca27_db> db.student.updateOne({rollno:1},{$unset:{phone:"9876543210"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+24mca27_db> db.student.deleteOne({rollno:1})
+{ acknowledged: true, deletedCount: 1 }
+24mca27_db> db.student.find().sort({name:1})
+[
+  {
+    _id: ObjectId('681b2a69699b8b4965d861e2'),
+    rollno: 3,
+    name: 'Bhavin',
+    age: 25,
+    phone: [ 9876543210, 9487362503 ]
+  },
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  },
+  {
+    _id: ObjectId('681b2ae9699b8b4965d861e3'),
+    rollno: 4,
+    name: 'Daniel',
+    age: 24,
+    address: { city: 'Malappuram', state: 'Kerala' }
+  },
+  {
+    _id: ObjectId('681b2bcc699b8b4965d861e4'),
+    rollno: 5,
+    name: 'David',
+    age: 23,
+    project: [ { pid: 101, pname: 'X' }, { pid: 102, pname: 'Y' } ]
+  }
+]
+24mca27_db> db.student.find().count()
+4
+24mca27_db> db.student.find().limit(3)
+[
+  {
+    _id: ObjectId('681b2588699b8b4965d861e1'),
+    rollno: 2,
+    name: 'Bhavya'
+  },
+  {
+    _id: ObjectId('681b2a69699b8b4965d861e2'),
+    rollno: 3,
+    name: 'Bhavin',
+    age: 25,
+    phone: [ 9876543210, 9487362503 ]
+  },
+  {
+    _id: ObjectId('681b2ae9699b8b4965d861e3'),
+    rollno: 4,
+    name: 'Daniel',
+    age: 24,
+    address: { city: 'Malappuram', state: 'Kerala' }
+  }
+]
+24mca27_db> db.student.createIndex({rollno:1})
+rollno_1
+
+
