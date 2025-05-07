@@ -364,4 +364,209 @@ ReferenceError: phoneno is not defined
 24mca27_db> db.student.createIndex({rollno:1})
 rollno_1
 
+24mca27_db> db.createCollection("orders")
+24mca27_db> db.orders.insertOne({order_no:O1,year:2020,cost:{price:30,currency24mca27_db> db.orders.insertOne({order_no:O1,year:2020,cost:{price:30,currency:"INR"},items:{pno:"P1",colors:["blue","black"],quantity:15},delivery_days:5}) 
+ReferenceError: O1 is not defined
+24mca27_db> db.orders.insertOne({order_no:"O1",year:2020,cost:{price:30,currency:"INR"},items:{pno:"P1",colors:["blue","black"],quantity:15},delivery_days:5})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b3907699b8b4965d861e5')
+}
+24mca27_db> db.orders.find()
+[
+  {
+    _id: ObjectId('681b3907699b8b4965d861e5'),
+    order_no: 'O1',
+    year: 2020,
+    cost: { price: 30, currency: 'INR' },
+    items: { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 15 },
+    delivery_days: 5
+  }
+]
+24mca27_db> db.orders.deleteOne({order_no:"O1"})
+{ acknowledged: true, deletedCount: 1 }
+24mca27_db> db.orders.insertOne({order_no:"O1",year:2020,cost:{price:30,currency:"INR"},paid:"Y",items:{pno:"P1",colors:["blue","black"],quantity:15},delivery_days:5})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b39a5699b8b4965d861e6')
+}
+24mca27_db> db.orders.find()
+[
+  {
+    _id: ObjectId('681b39a5699b8b4965d861e6'),
+    order_no: 'O1',
+    year: 2020,
+    cost: { price: 30, currency: 'INR' },
+    paid: 'Y',
+    items: { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 15 },
+    delivery_days: 5
+24mca27_db> db.orders.deleteOne({order_no:"O1"})
+{ acknowledged: true, deletedCount: 1 }
+24mca27_db> db.orders.insertOne({order_no:"O1",year:2020,paid:"Y",cost:{price:30,currency:"INR"},items:{pno:"P1",colors:["blue","black"],quantity:15},delivery_days:5})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b3b48699b8b4965d861e7')
+}
+24mca27_db> db.orders.find()
+[
+  {
+    _id: ObjectId('681b3b48699b8b4965d861e7'),
+    order_no: 'O1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 15 },
+    delivery_days: 5
+  }
+]
+24mca27_db> db.orders.insertOne({order_no:"O2",year:2020,paid:"Y",cost:{price:13,currency:"DLR"},items:{pno:"P2",colors:"white",quantity:4},delivery_days:4})
+{
+  acknowledged: true,
+24mca27_db> db.orders.insertOne({order_no:"O2",year:2020,paid:"Y",cost:{price:13,currency:"DLR"},items:{pno:"P3",colors:["white","black"],quantity:4},delivery_days:4})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b3bff699b8b4965d861e9')
+}
+24mca27_db> db.orders.find()
+[
+  {
+    _id: ObjectId('681b3b48699b8b4965d861e7'),
+    order_no: 'O1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 15 },
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('681b3b8f699b8b4965d861e8'),
+    order_no: 'O2',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: { pno: 'P2', colors: 'white', quantity: 4 },
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('681b3bff699b8b4965d861e9'),
+    order_no: 'O2',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: { pno: 'P3', colors: [ 'white', 'black' ], quantity: 4 },
+    delivery_days: 4
+  }
+]
+24mca27_db> db.orders.deleteOne({order_no:"O2"})
+{ acknowledged: true, deletedCount: 1 }
+24mca27_db> db.orders.find()
+[
+  {
+    _id: ObjectId('681b3b48699b8b4965d861e7'),
+    order_no: 'O1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 15 },
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('681b3bff699b8b4965d861e9'),
+    order_no: 'O2',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: { pno: 'P3', colors: [ 'white', 'black' ], quantity: 4 },
+    delivery_days: 4
+  }
+]
+24mca27_db> db.orders.insertOne({order_no:"O2",year:2020,paid:"Y",cost:{price:13,currency:"DLR"},items:{pno:"P3",colors:["white","black"],quantity:1},delivery_days:4})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b3c6e699b8b4965d861ea')
+}
+24mca27_db> db.orders.find()
+[
+  {
+    _id: ObjectId('681b3b48699b8b4965d861e7'),
+    order_no: 'O1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 15 },
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('681b3bff699b8b4965d861e9'),
+    order_no: 'O2',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: { pno: 'P3', colors: [ 'white', 'black' ], quantity: 4 },
+    delivery_days: 4
+  },
+  {
+    _id: ObjectId('681b3c6e699b8b4965d861ea'),
+    order_no: 'O2',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 },
+    delivery_days: 4
+  }
+]
+24mca27_db> db.orders.deleteOne({order_no:"O2"})
+{ acknowledged: true, deletedCount: 1 }
+24mca27_db> db.orders.find()
+[
+  {
+    _id: ObjectId('681b3b48699b8b4965d861e7'),
+    order_no: 'O1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 15 },
+    delivery_days: 5
+  },
+  {
+    _id: ObjectId('681b3c6e699b8b4965d861ea'),
+    order_no: 'O2',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 13, currency: 'DLR' },
+    items: { pno: 'P3', colors: [ 'white', 'black' ], quantity: 1 },
+    delivery_days: 4
+  }
+]
+24mca27_db> db.orders.deleteOne({order_no:"O2"})
+{ acknowledged: true, deletedCount: 1 }
+24mca27_db> db.orders.find()
+[
+  {
+    _id: ObjectId('681b3b48699b8b4965d861e7'),
+    order_no: 'O1',
+    year: 2020,
+    paid: 'Y',
+    cost: { price: 30, currency: 'INR' },
+    items: { pno: 'P1', colors: [ 'blue', 'black' ], quantity: 15 },
+    delivery_days: 5
+  }
+]
+24mca27_db> db.orders.insertOne({order_no:"O2",year:2020,paid:"Y",cost:{price:13,currency:"DLR"},items:{pno:"P3",colors:["white","black"],quantity:4},delivery_days:4})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b3cae699b8b4965d861eb')
+}
+24mca27_db> db.orders.deleteOne({order_no:"O2"})
+{ acknowledged: true, deletedCount: 1 }
+24mca27_db> db.orders.insertOne({order_no:"O2",year:2020,paid:"Y",cost:{price:13,currency:"DLR"},items:{pno:"P2",colors:"white",quantity:4},delivery_days:4})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b3cce699b8b4965d861ec')
+}
+24mca27_db> db.orders.insertOne({order_no:"O2",year:2020,paid:"Y",cost:{price:13,currency:"DLR"},items:{pno:"P3",colors:["white","black"],quantity:1},delivery_days:4})
+{
+  acknowledged: true,
+  insertedId: ObjectId('681b3cd8699b8b4965d861ed')
+}
 
