@@ -364,6 +364,8 @@ ReferenceError: phoneno is not defined
 24mca27_db> db.student.createIndex({rollno:1})
 rollno_1
 
+mongodb assignment solutions
+----------------------------
 24mca27_db> db.createCollection("orders")
 24mca27_db> db.orders.insertOne({order_no:O1,year:2020,cost:{price:30,currency24mca27_db> db.orders.insertOne({order_no:O1,year:2020,cost:{price:30,currency:"INR"},items:{pno:"P1",colors:["blue","black"],quantity:15},delivery_days:5}) 
 ReferenceError: O1 is not defined
